@@ -1,0 +1,58 @@
+function appendNodeListToUl(ulElement, nodeListOfLi) {
+  // Loop through each item in the NodeList
+  nodeListOfLi.forEach(function(liItem) {
+    // Append the <li> element to the <ul>
+    ulElement.appendChild(liItem);
+  });
+}
+
+// Example usage:
+// Assuming you have a NodeList of <li> elements and a <ul> with id 'myList'
+var myList = document.getElementById('myList');
+var myNodeListOfLi = document.querySelectorAll('.list-items'); // This is just an example selector
+
+// Append all <li> elements from the NodeList to the <ul>
+appendNodeListToUl(myList, myNodeListOfLi);
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convert NodeList to Array</title>
+</head>
+<body>
+    <ul id="itemList">
+        <li tabindex="0">Item 1</li>
+        <li tabindex="0">Item 2</li>
+        <li tabindex="0">Item 3</li>
+        <li tabindex="0">Item 4</li>
+        <li tabindex="0">Item 5</li>
+    </ul>
+    <button onclick="removeThirdItem()">Remove 3rd Item</button>
+
+    <script>
+        function removeThirdItem() {
+            const nodeList = document.querySelectorAll('#itemList li');
+
+            // Convert NodeList to Array using Array.from()
+            const arrayFromNodeList = Array.from(nodeList);
+
+            // Remove the 3rd item (index 2) from the array
+            arrayFromNodeList.splice(2, 1);
+
+            // Update the DOM by clearing and repopulating the list
+            const list = document.getElementById('itemList');
+            list.innerHTML = ''; // Clear the current list
+
+            // Rebuild the list from the modified array
+            arrayFromNodeList.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item.textContent; // Copy text content
+                li.setAttribute('tabindex', '0'); // Reset tabindex
+                list.appendChild(li);
+            });
+        }
+    </script>
+</body>
+</html>
